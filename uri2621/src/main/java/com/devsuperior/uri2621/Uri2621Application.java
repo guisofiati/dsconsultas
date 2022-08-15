@@ -19,7 +19,6 @@ public class Uri2621Application implements CommandLineRunner {
 	
 	private static final Logger logger = LoggerFactory.getLogger(Uri2621Application.class);
 
-
 	@Autowired
 	private ProductRepository repository;
 	
@@ -30,7 +29,7 @@ public class Uri2621Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		logger.info("Resultado em SQL raiz");
-		List<ProductProjection> list = repository.search1("p");
+		List<ProductProjection> list = repository.search1(10, 20, "p");
 		List<ProductMinDTO> dto = list.stream()
 				.map(x -> new ProductMinDTO(x))
 				.collect(Collectors.toList());
@@ -40,7 +39,7 @@ public class Uri2621Application implements CommandLineRunner {
 		}
 		
 		logger.info("Resultado em JPQL");
-		List<ProductMinDTO> dto2 = repository.search2("p");
+		List<ProductMinDTO> dto2 = repository.search2(10, 20, "p");
 		
 		for (ProductMinDTO obj : dto2) {
 			System.out.println(obj);
